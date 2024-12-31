@@ -264,3 +264,21 @@ Not Found: /admin/toggle-agent/7/
 /media/asif/Mahbub1/sapin/SoccerBID/auctions/urls.py changed, reloading.
 Using selector: EpollSelector
 Watching for file changes with StatReloader
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+Not Found: /media/
+Not Found: /media/
+Not Found: /media/
+Not Found: /media/
+Not Found: /media/
+Not Found: /media/
+/media/asif/Mahbub1/tst/SoccerBID/auctions/urls.py changed, reloading.
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+Forbidden (CSRF token missing or incorrect.): /admin/toggle-agent/7/
+Using selector: EpollSelector
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+Not Found: /admin/toggle-agent/7/
+Not Found: /media/
+Not Found: /media/
