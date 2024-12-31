@@ -16,6 +16,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
 import time, datetime, calendar
 from django.template.loader import render_to_string
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 def index(request):
@@ -551,3 +552,10 @@ def reports(request):
 
 def forbidden_view(request):
     return render(request,"auctions/admin/forbidden.html")
+
+@staff_member_required
+def toggle_agent_status(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    user.is_agent = not user.is_agent
+    user.save()
+    return redirect('manage_users')

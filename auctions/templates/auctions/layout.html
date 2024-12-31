@@ -43,10 +43,14 @@
                 <a class="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600" href="{% url 'categories' %}">Categories</a>
         
                 {% if user.is_authenticated %}
-                <a class="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600" href="{% url 'create_listing' %}">Create Listings</a>
-                <a class="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600" href="{% url 'your_listings' %}">Your Listings</a>
-                <a class="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600" href="{% url 'won_listings' %}">Won Auctions</a>
-                <a class="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600" href="{% url 'watch_list' %}">Watch List</a>
+                    {% if user.is_agent %}
+                    <a class="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600" href="{% url 'create_listing' %}">Create Listings</a>
+                    
+                    <a class="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600" href="{% url 'your_listings' %}">Your Listings</a>
+                    {% endif %}
+
+                    <a class="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600" href="{% url 'won_listings' %}">Won Auctions</a>
+                    <a class="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600" href="{% url 'watch_list' %}">Watch List</a>
                 {% endif %}
         
                 {% if user.is_authenticated %}
@@ -54,6 +58,9 @@
                     <div class="flex-col ml-4">
                         <p>Welcome !</p>
                         <strong>{{user.username}}</strong>
+                        {% if user.is_agent %}
+                        <span class="ml-2 text-green-500">(Agent)</span>
+                        {% endif %}
                     </div>
                     <a class="flex text-gray-600 cursor-pointer transition-colors duration-300 font-semibold text-blue-600" href="{% url 'view_profile' %}">
                         <img src="{% static 'auctions/user-edit.svg' %}" alt="user" width="24" height="24" viewBox="0 0 24 24">

@@ -14,7 +14,7 @@
         <ul>
             {% for user in users %}
             <li class="my-4">
-                <div class="flex justify-between">
+                <div class="flex justify-between items-center">
                   <div class="flex items-center">
                     <div class="flex-shrink-0">
                       {% if user.profile_picture %}
@@ -26,12 +26,28 @@
                     <div class="ml-4">
                         <div class="text-sm font-medium text-gray-900">{{ user.username }}</div>
                         <div class="text-sm text-gray-500">{{ user.email }}</div>
+                        {% if user.is_agent %}
+                            <span class="ml-2 text-green-500 text-xs">(Agent)</span>
+                        {% endif %}
                     </div>
                   </div>
                     
-                    <div>
-                      <button class="bg-gray-500 hover:bg-gray-300 hover:text-gray-900 text-white font-bold py-2 px-4 rounded"> View Profile </button>
-                    </div>
+                  <div class="flex items-center space-x-4">
+                    <button class="bg-gray-500 hover:bg-gray-300 hover:text-gray-900 text-white font-bold py-2 px-4 rounded"> View Profile </button>
+                    
+                    <form method="POST" action="{% url 'toggle_agent_status' user.id %}">
+                        {% csrf_token %}
+                        {% if user.is_agent %}
+                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                Remove Agent
+                            </button>
+                        {% else %}
+                            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                Make Agent
+                            </button>
+                        {% endif %}
+                    </form>
+                  </div>
                 </div>
             </li>
             {% endfor %}
