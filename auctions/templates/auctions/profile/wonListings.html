@@ -1,0 +1,38 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <div class="bg-gray-100 dark:bg-gray-900 min-h-[100vh] pt-[12vh] flex flex-col gap-6 items-center justify-center">
+
+        <h1 class="text-gray-100 text-7xl poppins-extrabold">Won Auctions</h1>
+        
+    {% if listings %}
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+            {% for listing in listings %}
+                <div class="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
+                    <a class="block group" href="{% url 'listing' listing.id %}">
+                        <div class="image-row overflow-hidden">
+                            <img src="/media/{{ listing.image }}" alt="{{ listing.title }}" class="listing-image object-cover w-full h-40 rounded-lg">
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 group-hover:text-blue-500">{{ listing.title }}</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400"> Category: {{ listing.category }}</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400"> Final Bid: ₹ {{ listing.starting_value }}</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 blink-green "> Congratulations You Won ! </p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+        </section>
+    </div>
+    {% else %}
+
+    <div class="bg-gray-100 dark:bg-gray-900 min-h-[100vh] flex flex-col gap-6 items-center justify-center">
+        <h1 class="text-gray-100 text-4xl poppins-extrabold"> 
+            You have not won any auctions yet! 
+        </h1>
+    </div>
+
+    {% endif %}
+{% endblock %}
