@@ -18,13 +18,40 @@
             Welcome to SOCCER BID!!
         </h1>
     
-        <div class="flex items-center justify-center text-gray-200">
+        <div class="flex items-center justify-center">
             <div class="text-center">
                 <p class="text-lg leading-relaxed text-gray-400">
                     Are you ready to turn your love for football into thrilling victories off the field? At SOCCER BID, the beautiful game gets even more exciting. Join a community of die-hard fans competing to outwit, outplay, and outbid others for a chance to score big!
                 </p>
+                <p id="typing-text"  class="text-3xl font-bold leading-relaxed text-blue-500">
+                
+              </p>
             </div>
         </div>
+        <script>
+          const text = "Let the games begin – because football isn't just played, it's lived!";
+          const typingText = document.getElementById("typing-text");
+          let index = 0;
+      
+          function typeEffect() {
+              if (index < text.length) {
+                  typingText.textContent += text.charAt(index);
+                  index++;
+                  setTimeout(typeEffect, 100); // Adjust typing speed (100ms per character)
+              }
+              else {
+            // When finished typing, reset and restart
+            setTimeout(() => {
+                index = 0;
+                typingText.textContent = ''; // Clear the text
+                typeEffect(); // Start typing again
+            }, 1000);
+          }
+        }
+      
+          // Start the typing effect
+          typeEffect();
+      </script>
     </div>
     
     
