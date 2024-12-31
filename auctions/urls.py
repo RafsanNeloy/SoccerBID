@@ -33,4 +33,5 @@ urlpatterns = [
     path('delete_listing/<int:listing_id>/', views.delete_listing, name='delete_listing'),
     path("admin-dashboard/reports", views.reports, name="reports"),
     path('forbidden/', views.forbidden_view, name='forbidden'),
+    path('admin/toggle-agent/<int:user_id>/', views.toggle_agent_status, name='toggle_agent_status'),
 ]

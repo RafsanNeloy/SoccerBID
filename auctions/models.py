@@ -6,6 +6,7 @@ from django.utils import timezone
 class User(AbstractUser):
     address = models.CharField(max_length=255, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='images/', blank=True, null=True)
+    is_agent = models.BooleanField(default=False)
     
 
 class Listing(models.Model):

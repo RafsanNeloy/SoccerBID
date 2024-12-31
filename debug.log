@@ -34,6 +34,47 @@ Not Found: /media/
 Not Found: /media/
 Watching for file changes with StatReloader
 Not Found: /media/
+<<<<<<< HEAD
+Not Found: /favicon.ico
+Not Found: /media/
+Not Found: /media/
+Not Found: /media/
+Bids for listing 4: <QuerySet []>
+No bids found for listing 4
+Bids for listing 4: <QuerySet []>
+No bids found for listing 4
+Not Found: /media/
+/media/asif/Mahbub1/sapin/SoccerBID/auctions/models.py changed, reloading.
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+/media/asif/Mahbub1/sapin/SoccerBID/auctions/models.py changed, reloading.
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+/media/asif/Mahbub1/sapin/SoccerBID/auctions/models.py changed, reloading.
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+/media/asif/Mahbub1/sapin/SoccerBID/auctions/models.py changed, reloading.
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+Using selector: EpollSelector
+Using selector: EpollSelector
+Using selector: EpollSelector
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+/media/asif/Mahbub1/sapin/SoccerBID/auctions/models.py changed, reloading.
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+/media/asif/Mahbub1/sapin/SoccerBID/auctions/models.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /media/
+Not Found: /media/
+/media/asif/Mahbub1/sapin/SoccerBID/auctions/urls.py changed, reloading.
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+/media/asif/Mahbub1/sapin/SoccerBID/auctions/urls.py changed, reloading.
+Using selector: EpollSelector
+Watching for file changes with StatReloader
+=======
 Not Found: /media/
 Not Found: /media/
 Not Found: /media/
@@ -143,6 +184,7 @@ C:\Users\pc\Desktop\football biding\SoccerBID\auctions\forms.py changed, reloadi
 Watching for file changes with StatReloader
 Not Found: /media/
 Not Found: /media/
+<<<<<<< HEAD
 Not Found: /media/
 Not Found: /media/
 Not Found: /media/
@@ -203,4 +245,7 @@ Not Found: /media/
 C:\Users\pc\Desktop\football biding\SoccerBID\auctions\views.py changed, reloading.
 Watching for file changes with StatReloader
 C:\Users\pc\Desktop\football biding\SoccerBID\auctions\models.py changed, reloading.
+=======
+>>>>>>> 018869d765c2a08eec6c0aeca0b2611c56b0dd6f
+>>>>>>> 53e52f2195f4cb00aaaf6d3b13c4966c5921b3e7
 Watching for file changes with StatReloader
