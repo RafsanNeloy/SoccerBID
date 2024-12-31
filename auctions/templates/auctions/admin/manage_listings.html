@@ -1,8 +1,6 @@
 {% extends "auctions/admin/admin_layout.html" %}
 {% load static %}
 {% block body %}
-
-
     <!-- Main Content Area -->
     <div class="flex-1 flex flex-col">
         <header class="bg-white border-b-2 border-gray-200 py-4">
@@ -16,39 +14,129 @@
                 <button type="submit" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">Search</button>
             </form>
         </div>
+
         <!-- Manage Listings Section -->
         <div class="bg-white border rounded-lg p-4 shadow-lg mx-4 my-4">
-
             <h2 class="text-lg font-semibold mb-2" id="manage_listing">Manage Listings</h2>
             <ul class="grid grid-cols-2">
                 {% for listing in listings %}
-                <li>
+                <li data-listing-id="{{ listing.id }}">
                     <div class="flex items-center bg-gray-100 border rounded-lg p-4 shadow-lg min-h-[40vh] my-2 mx-4 hover:shadow-lg transform transition-transform hover:scale-105">
                         <div class="ml-4">
                             <div class="text-sm font-medium text-gray-900">{{ listing.title }}</div>
                             <div class="text-sm text-gray-500">{{ listing.description }}</div>
                             <div class="text-sm text-gray-500">Starting Value: ₹{{ listing.starting_value }}</div>
                             <div class="text-sm text-gray-500">Category: {{ listing.category }}</div>
-                            <div class="text-sm text-gray-500"><strong>Auction Active: {% if listing.auction_active %} <span class="text-green-500">Yes</span>{% else %} <span class="text-red-500" >No</span> {% endif %}</strong></div>
+                            <div class="text-sm text-gray-500">
+                                <strong>Auction Active: 
+                                    <span class="auction-status">
+                                        {% if listing.auction_active %} 
+                                            <span class="text-green-500">Yes</span>
+                                        {% else %} 
+                                            <span class="text-red-500">No</span> 
+                                        {% endif %}
+                                    </span>
+                                </strong>
+                            </div>
                             <div class="flex mt-2">
-                                <form action="{% url 'delete_listing' listing.id %}" method="post" class="mr-2">
-                                    {% csrf_token %}
-                                    <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Delete</button>
-                                </form>
+                                <button onclick="deleteListing({{ listing.id }})" class="delete-btn bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Delete</button>
                                 {% if listing.auction_active %}
-                                    <form action="{% url 'deactivate_listing' listing.id %}" method="post">
-                                        {% csrf_token %}
-                                        <button type="submit" class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">Deactivate</button>
-                                    </form>
+                                    <button onclick="toggleListingStatus({{ listing.id }})" class="status-toggle-btn bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 ml-2">Deactivate</button>
+                                {% else %}
+                                    <button onclick="toggleListingStatus({{ listing.id }})" class="status-toggle-btn bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600 ml-2">Activate</button>
                                 {% endif %}
                             </div>
                         </div>
                     </div>
                 </li>
                 {% endfor %}
+            </ul>
         </div>
-
     </div>
 
+    <script>
+    function deleteListing(listingId) {
+        if (!confirm('Are you sure you want to delete this listing?')) return;
 
+        fetch(`/admin/delete_listing/${listingId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // Remove the listing from the DOM
+                const listingElement = document.querySelector(`li[data-listing-id="${listingId}"]`);
+                if (listingElement) {
+                    listingElement.remove();
+                }
+                alert('Listing deleted successfully');
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while deleting the listing');
+        });
+    }
+
+    function toggleListingStatus(listingId) {
+        fetch(`/admin/toggle_listing_status/${listingId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const listingElement = document.querySelector(`li[data-listing-id="${listingId}"]`);
+                const statusSpan = listingElement.querySelector('.auction-status');
+                const toggleButton = listingElement.querySelector('.status-toggle-btn');
+
+                if (data.auction_active) {
+                    statusSpan.innerHTML = '<span class="text-green-500">Yes</span>';
+                    toggleButton.textContent = 'Deactivate';
+                    toggleButton.classList.remove('bg-green-500', 'hover:bg-green-600');
+                    toggleButton.classList.add('bg-yellow-500', 'hover:bg-yellow-600');
+                } else {
+                    statusSpan.innerHTML = '<span class="text-red-500">No</span>';
+                    toggleButton.textContent = 'Activate';
+                    toggleButton.classList.remove('bg-yellow-500', 'hover:bg-yellow-600');
+                    toggleButton.classList.add('bg-green-500', 'hover:bg-green-600');
+                }
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating listing status');
+        });
+    }
+
+    // Optional: Add live search functionality
+    document.getElementById('search-input').addEventListener('input', function() {
+        const form = document.getElementById('search-form');
+        const formData = new FormData(form);
+        
+        fetch(form.action + '?' + new URLSearchParams(formData), {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newListings = doc.getElementById('listings-container');
+            document.getElementById('listings-container').innerHTML = newListings.innerHTML;
+        });
+    });
+    </script>
 {% endblock %}

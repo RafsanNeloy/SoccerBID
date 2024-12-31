@@ -42,7 +42,7 @@
           <h1 class="mt-2 text-xl font-semibold leading-7 text-gray-800 lg:text-2xl lg:leading-6 dark:text-white">{{ listing.title }}</h1>
         </div>
         <div class="flex flex-col gap-2 border-b border-gray-200 py-4 text-white">
-          <strong class="text-lg">Item Description</strong>
+          <strong class="text-lg">Player Description</strong>
           <p class=" my-1" >{{ listing.description }}</p>
           <p class="text-lg my-1" ><strong>Owner: </strong>{{ listing.user }}</p>
   
@@ -76,7 +76,7 @@
         {% if not user_authenticated %}
         {% endif %}
         <div class=" m-6 text-center">
-          <p class="text-white text-xl">Please login To place a bid</p>
+          <!-- <p class="text-white text-xl">Please login To place a bid</p> -->
         </div>
         {% if owner and listing.auction_active %}
         <div class="flex flex-col gap-4 my-4 items-center">

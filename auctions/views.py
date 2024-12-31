@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.db.models import Count, Q
-from django.http import  HttpResponseRedirect, Http404, HttpResponseForbidden
+from django.http import  HttpResponseRedirect, Http404, HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.db import connections
@@ -276,10 +276,19 @@ def watch(request, listing_id):
 @login_required(redirect_field_name='index')
 def bid(request, listing_id):
     current_bid = get_current_bid_value(listing_id)
+    listing = Listing.objects.get(id=listing_id)
 
     if float(request.POST["value"]) > current_bid:
         newBid = Bid(user=request.user, listing_id=listing_id, value=request.POST["value"])
         newBid.save()
+
+        # Update the winner of the listing to the current highest bidder
+        bids = Bid.objects.filter(listing_id=listing_id)
+        if bids.exists():
+            highest_bid = bids.order_by('-value')[0]
+            listing.winner = highest_bid.user
+            listing.save()
+
         return HttpResponseRedirect(reverse("listing", args=(listing_id,)))
 
     else:
@@ -444,16 +453,59 @@ def manage_users(request):
     users = User.objects.all()
     return render(request, 'auctions/admin/manage_users.html', {'users': users})
 
-@user_passes_test(is_superuser, login_url='/forbidden/')
+@staff_member_required
 def manage_listings(request):
+    query = request.GET.get('q', '')
     listings = Listing.objects.all()
-    query = request.GET.get('q')
+    
     if query:
-        # Filter listings based on title or description containing the search query
-        listings = Listing.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
-    else:
-        listings = Listing.objects.all()
-    return render(request, 'auctions/admin/manage_listings.html', {'listings': listings})
+        listings = listings.filter(
+            Q(title__icontains=query) | 
+            Q(description__icontains=query) | 
+            Q(category__icontains=query)
+        )
+    
+    # Add a method to get current bid value for each listing
+    for listing in listings:
+        listing.current_bid = get_current_bid_value(listing.id)
+    
+    return render(request, "auctions/admin/manage_listings.html", {
+        "listings": listings
+    })
+
+@staff_member_required
+def delete_listing_ajax(request, listing_id):
+    if request.method == 'POST':
+        try:
+            listing = get_object_or_404(Listing, id=listing_id)
+            listing.delete()
+            return JsonResponse({
+                'status': 'success', 
+                'message': 'Listing deleted successfully'
+            })
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error', 
+                'message': str(e)
+            }, status=400)
+
+@staff_member_required
+def toggle_listing_status_ajax(request, listing_id):
+    if request.method == 'POST':
+        try:
+            listing = get_object_or_404(Listing, id=listing_id)
+            listing.auction_active = not listing.auction_active
+            listing.save()
+            return JsonResponse({
+                'status': 'success', 
+                'message': 'Listing status updated successfully',
+                'auction_active': listing.auction_active
+            })
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error', 
+                'message': str(e)
+            }, status=400)
 
 @user_passes_test(is_superuser, login_url='/forbidden/')
 def deactivate_listing(request, listing_id):

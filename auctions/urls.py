@@ -34,4 +34,6 @@ urlpatterns = [
     path("admin-dashboard/reports", views.reports, name="reports"),
     path('forbidden/', views.forbidden_view, name='forbidden'),
     path('toggle-agent/<int:user_id>/', views.toggle_agent_status, name='toggle_agent_status'),
+    path('admin/delete_listing/<int:listing_id>/', views.delete_listing_ajax, name='delete_listing_ajax'),
+    path('admin/toggle_listing_status/<int:listing_id>/', views.toggle_listing_status_ajax, name='toggle_listing_status_ajax'),
 ]
