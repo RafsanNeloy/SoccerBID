@@ -257,3 +257,10 @@ Not Found: /media/
 Not Found: /media/
 Not Found: /admin/toggle-agent/9/
 Not Found: /admin/toggle-agent/10/
+Watching for file changes with StatReloader
+Not Found: /admin/toggle-agent/9/
+Not Found: /admin/toggle-agent/8/
+Not Found: /admin/toggle-agent/7/
+/media/asif/Mahbub1/sapin/SoccerBID/auctions/urls.py changed, reloading.
+Using selector: EpollSelector
+Watching for file changes with StatReloader

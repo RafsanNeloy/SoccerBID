@@ -555,7 +555,8 @@ def forbidden_view(request):
 
 @staff_member_required
 def toggle_agent_status(request, user_id):
-    user = get_object_or_404(User, id=user_id)
-    user.is_agent = not user.is_agent
-    user.save()
+    if request.method == 'POST':
+        user = get_object_or_404(User, id=user_id)
+        user.is_agent = not user.is_agent
+        user.save()
     return redirect('manage_users')
