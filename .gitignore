@@ -5,3 +5,6 @@ __pycache__/
 *.pyw
 *.pyz
 *.log
+.fuse_hidden*
+debug.log
+db.sqlite3
