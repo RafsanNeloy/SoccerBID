@@ -17,30 +17,26 @@
                 <a href="{% url 'category' category %}" class="block">
                     <div class="h-28">
                         <div
-                            class="absolute -top-20 lg:top-[-10%] left-[5%] z-40  group-hover:top-[-40%] group-hover:opacity-[0.9]   duration-300 w-[90%] h-48 bg-red-500 rounded-xl justify-items-center align-middle">
-                            {% if category == 'Trading Cards' %}
+                         class="absolute -top-20 lg:top-[-10%] left-[5%] z-40 group-hover:top-[-40%] group-hover:opacity-[0.9] duration-300 w-[90%] h-48 bg-white rounded-xl justify-items-center align-middle flex items-center justify-center">
+                            {% if category == 'Right-Wing' %}
+                            <img src="{% static 'auctions/rightwing.JPEG' %}"
+                                class="w-auto h-auto max-w-[250px] max-h-[250px] m-auto" alt="Right Wing" loading="lazy" width="400" height="400">
 
-                            <img src="https://cdn.iconscout.com/icon/premium/png-512-thumb/trading-cards-4202156-3479115.png?f=webp&w=256"
-                                class="w-36 h-36  mt-6 m-auto" alt="Trading Cards"  loading="lazy"
-                                width="200" height="200">
+                            {% elif category == 'Left-Wing' %}
 
-                            {% elif category == 'Currency & Coins' %}
-
-                            <img src=" {% static "auctions/coins.svg" %} "
-                                class="w-36 h-36  mt-6 m-auto" alt="Currency & Coins"  loading="lazy"
-                                width="200" height="200">
+                            <img src=" {% static 'auctions/leftwing.JPEG' %}"
+                            class="w-auto h-auto max-h-[150px] m-auto" alt="Left Wing" loading="lazy" width="800" height="150">
                             
-                            {% elif category == 'Comic Books' %}
+                            {% elif category == 'Defender' %}
 
-                            <img src="https://cdn.iconscout.com/icon/premium/png-512-thumb/comic-book-4595476-3806068.png?f=webp&w=256"
-                                class="w-36 h-36  mt-6 m-auto" alt="Comic Books" loading="lazy"
-                                width="200" height="200">
+                            <img src="{% static 'auctions/defender.PNG' %}"
+                            class="w-auto h-auto max-w-[250px] max-h-[250px] m-auto" alt="Right Wing" loading="lazy" width="400" height="400">
 
-                            {% elif category == 'Figurines' %}
+                            {% elif category == 'MID-Fielder' %}
 
-                            <img src=" {% static "auctions/figurine.svg" %} "
-                                class="w-36 h-36  mt-6 m-auto" alt="Comic Books" loading="lazy"
-                                width="200" height="200">
+                            <img src=" {% static "auctions/midfielder.JPEG" %} "
+                            class="w-auto h-auto max-w-[250px] max-h-[250px] m-auto" alt="MID-Fielder" loading="lazy" width="400" height="400">
+
 
                             {% elif category == 'Other' %}
 
@@ -48,11 +44,10 @@
                                 class="w-36 h-36  mt-6 m-auto" alt="Comic Books" loading="lazy"
                                 width="200" height="200">
 
-                            {% elif category == 'Collectibles' %}
+                            {% elif category == 'GOAL-Keeper' %}
 
-                            <img src="https://cdn.iconscout.com/icon/premium/png-512-thumb/gallery-artwork-11129775-9011199.png?f=webp&w=256"
-                                class="w-36 h-36  mt-6 m-auto" alt="Comic Books" loading="lazy"
-                                width="200" height="200">
+                            <img src=" {% static "auctions/keeper.PNG" %} "
+                            class="w-auto h-auto max-w-[250px] max-h-[250px] m-auto" alt="GOAL-Keeper" loading="lazy" width="400" height="400">
 
                             {% else %}
 
