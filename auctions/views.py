@@ -387,7 +387,25 @@ def categories(request):
     return render(request, "auctions/categories.html", {
         'categories': categories
     }
+
     )
+def index(request):
+    # Fetch categories for the home page slider
+    with connections['default'].cursor() as cursor:
+        cursor.execute("SELECT DISTINCT category FROM auctions_listing ORDER BY category")
+        cats = cursor.fetchall()  # list of tuples returned
+    
+    # Converting the list of tuples to just a list
+    categories = [category[0] for category in cats]
+
+    # Fetch recent listings for the home page
+    listings = Listing.objects.all()  # You can adjust this as needed
+    
+    return render(request, "auctions/index.html", {
+        'categories': categories,
+        'listings': listings,
+    })
+
 
 def category(request, category):
     active_listings = Listing.objects.filter(category=category, auction_active=True)
@@ -404,6 +422,7 @@ def category(request, category):
         'active_listings': active_listings,
         'inactive_listings': inactive_listings,
     })
+
 
 @login_required
 def view_profile(request):

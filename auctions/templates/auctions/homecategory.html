@@ -1,13 +1,14 @@
-{% extends "auctions/layout.html" %} {% load static %}
+
+{% load static %}
 
 {% block body %}
 
 <!-- Swiper Styles -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
 
-<section class="dark:bg-gray-900 py-24 px-4 lg:px-16 min-h-[100vh]"> 
+<section class="dark:bg-gray-900 py-24 px-4 lg:px-16 min-h-[5vh]"> 
     <div class="container mx-auto px-[12px] md:px-24 xl:px-12 max-w-[1300px] nanum2">
-        <h1 class="text-center text-5xl pb-12 text-white"> Categories </h1>
+        <h1 class="text-center text-5xl pb-12 text-black"> Categories </h1>
 
         <!-- Swiper Slider -->
         <div class="swiper">
@@ -91,5 +92,4 @@
     });
 </script>
 
-    
 {% endblock %}
