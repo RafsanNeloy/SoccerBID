@@ -1,6 +1,8 @@
-{% extends "auctions/layout.html" %} {% block body %} {% load custom_filters %}
+{% extends "auctions/layout.html" %}
+{% block body %}
+{% load custom_filters %}
 <!-- component -->
-<section class="min-h-[100vh] w-[100vw] pb-12vh bg-gray-900 pt-[12vh]">
+<section class="min-h-[100vh] w-[100vw] pb-12vh bg-[#F0BB78] pt-[12vh]">
 
     {% if error_message %}
     <div
@@ -67,16 +69,10 @@
         <div class=" m-6 text-center">
           <p class="text-white text-2xl">Current Highest Bidder: {% if highest_bidder %} <span>{{highest_bidder}}</span> {% else %} <span>No one has bid yet !</span> {% endif %}</p>
         </div>
-        {% comment %} {% if listing.auction_active %}
-        <div class=" m-6 text-center">
-          <p class="text-white text-2xl">Remaining Time: <span id="remaining-time">{{ listing.remaining_time|timedelta_format }}</span></p>
-        </div>
-        {% endif %} {% endcomment %}
 
         {% if not user_authenticated %}
         {% endif %}
         <div class=" m-6 text-center">
-          <!-- <p class="text-white text-xl">Please login To place a bid</p> -->
         </div>
         {% if owner and listing.auction_active %}
         <div class="flex flex-col gap-4 my-4 items-center">
@@ -92,27 +88,21 @@
         {% if not owner and  user_authenticated %}
           {% if active %}
             <div class="flex flex-col gap-4 my-4 items-center">
-              <!-- Input: Designation [h-12] & min-w-[12rem] -->
               <form action="{% url 'bid' listing.id %}" method="post" class="">
                 {% csrf_token %}
                 <input class="h-12 min-w-[12rem] rounded-lg border-emerald-500 indent-4 text-emerald-900 shadow-lg focus:outline-none focus:ring focus:ring-emerald-600" type="text" 
                 placeholder="Place Your Bid"
                 name="value" type = "number" 
                 />
-                <!-- Button: Submit [h-12] -->
                 <button class="h-12 min-w-[8rem] rounded-lg border-2 border-emerald-600 bg-emerald-500 text-emerald-50 shadow-lg hover:bg-emerald-600 focus:outline-none focus:ring focus:ring-emerald-600">Bid</button>
               </form>
               {% if user_authenticated %}
                 <form action="{% url 'watch' listing.id %}" method="post">
                     {% csrf_token %}
                   {% if watch %}
-
                     <button class="h-12 min-w-[8rem] rounded-lg border-2 border-red-600 bg-red-500 text-red-50 shadow-lg hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-600">Remove from<br>Watchlist</button>
-
                   {% else %}
-                  
                     <button class="h-12 min-w-[8rem] rounded-lg border-2 border-cyan-600 bg-cyan-500 text-emerald-50 shadow-lg hover:bg-cyan-600 focus:outline-none focus:ring focus:ring-blue-600">Add to<br>Watchlist</button>
-                  
                   {% endif %}
                 </form>
               {% endif %}
@@ -121,14 +111,7 @@
           <p>Item Expired</p>
           {% endif %}
         {% endif %}
-        <!-- {% else %}
-        <div class="m-6 text-center">
-          <p class="text-white text-xl">You are an agent, you cannot place bids</p>
-        </div>
-        {% endif %} -->
-
         {% if user_authenticated %}
-        <!-- {% if not user.is_agent %} -->
         <div class="flex flex-col mt-4">
             <h4 class="text-white text-center text-2xl mt-4" >Comment Section</h4>
             <div>
@@ -178,8 +161,9 @@
           }, 1000);
         });
     </script>
-      
+
+    <!-- Footer Section -->
+    
+
 </section>
-
-
 {% endblock %}

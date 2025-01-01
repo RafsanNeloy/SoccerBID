@@ -1,7 +1,7 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <div class="bg-gray-100 dark:bg-gray-900 min-h-[100vh] pt-[12vh] flex flex-col gap-6 items-center justify-center">
+    <div class="bg-[#F0BB78] dark:bg-gray-900 min-h-[100vh] pt-[12vh] flex flex-col gap-6 items-center justify-center">
 
         <h1 class="text-gray-100 text-7xl poppins-extrabold">Won Auctions</h1>
         
@@ -9,7 +9,7 @@
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         
             {% for listing in listings %}
-                <div class="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
+                <div class="bg-[#F0BB78] rounded-lg shadow-md">
                     <a class="block group" href="{% url 'listing' listing.id %}">
                         <div class="image-row overflow-hidden">
                             <img src="/media/{{ listing.image }}" alt="{{ listing.title }}" class="listing-image object-cover w-full h-40 rounded-lg">
@@ -29,7 +29,7 @@
     </div>
     {% else %}
 
-    <div class="bg-gray-100 dark:bg-gray-900 min-h-[100vh] flex flex-col gap-6 items-center justify-center">
+    <div class="bg-[#F0BB78] min-h-[100vh] flex flex-col gap-6 items-center justify-center">
         <h1 class="text-gray-100 text-4xl poppins-extrabold"> 
             You have not won any auctions yet! 
         </h1>
