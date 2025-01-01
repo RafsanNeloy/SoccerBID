@@ -88,6 +88,7 @@
           </form>
         </div>
         {% endif %}
+        {% if not user.is_agent %}
         {% if not owner and  user_authenticated %}
           {% if active %}
             <div class="flex flex-col gap-4 my-4 items-center">
@@ -120,9 +121,14 @@
           <p>Item Expired</p>
           {% endif %}
         {% endif %}
+        <!-- {% else %}
+        <div class="m-6 text-center">
+          <p class="text-white text-xl">You are an agent, you cannot place bids</p>
+        </div>
+        {% endif %} -->
 
         {% if user_authenticated %}
-      
+        <!-- {% if not user.is_agent %} -->
         <div class="flex flex-col mt-4">
             <h4 class="text-white text-center text-2xl mt-4" >Comment Section</h4>
             <div>
@@ -143,10 +149,15 @@
                                 <svg class="w-6 h-6 rotate-90" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
                             </button>
                         </div>
-                      </form>
+                    </form>
                 </div>
             </div>
         </div>
+        {% else %}
+        <div class="m-6 text-center">
+          <p class="text-white text-xl">You are an agent, you cannot comment</p>
+        </div>
+        {% endif %}
     {% endif %}
     </div>
 
