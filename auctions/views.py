@@ -246,8 +246,12 @@ def create_listing(request):
 
     return render(request, "auctions/createListing.html", {'form': ListingForm})
 
-def view_listing(request, listing_id, error_message=False):
-    listing = Listing.objects.get(pk=listing_id)
+def view_listing(request, listing_id, error_message=None):
+    listing = Listing.objects.get(id=listing_id)
+    
+    # Get the last 10 bids for this listing, ordered by most recent first
+    bid_history = Bid.objects.filter(listing_id=listing_id).order_by('-created_at')[:10]
+    
     isActive = listing.auction_active
     current_bid = get_current_bid_value(listing_id)
     highest_bidder = get_current_bidder(listing_id)
@@ -272,6 +276,7 @@ def view_listing(request, listing_id, error_message=False):
             'comments': Comment.objects.filter(listing=listing),
             'highest_bidder': highest_bidder,
             # 'remaining_time': listing.remaining_time,
+            'bid_history': bid_history,
         })
     else:
         return render(request, "auctions/listingView.html", {
@@ -722,3 +727,19 @@ def reject_agent_request(request, user_id):
         except User.DoesNotExist:
             messages.error(request, 'User not found')
     return redirect('manage_agent_requests')
+
+@user_passes_test(is_superuser, login_url='/forbidden/')
+def delete_user(request, user_id):
+    try:
+        user = User.objects.get(pk=user_id)
+        # Prevent deleting superusers
+        if user.is_superuser:
+            messages.error(request, 'Cannot delete a superuser account.')
+            return redirect('manage_users')
+        
+        user.delete()
+        messages.success(request, f'User {user.username} has been deleted successfully.')
+    except User.DoesNotExist:
+        messages.error(request, 'User not found.')
+    
+    return redirect('manage_users')
