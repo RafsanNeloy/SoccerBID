@@ -38,4 +38,8 @@ urlpatterns = [
     path('admin/toggle_listing_status/<int:listing_id>/', views.toggle_listing_status_ajax, name='toggle_listing_status_ajax'),
     path('otp-verification/', views.otp_verification, name='otp_verification'),
     path('otp-success/', views.otp_success, name='otp_success'),
+    path('request-agent-status/', views.request_agent_status, name='request_agent_status'),
+    path('admin-dashboard/manage-agent-requests/', views.manage_agent_requests, name='manage_agent_requests'),
+    path('admin-dashboard/approve-agent-request/<int:user_id>/', views.approve_agent_request, name='approve_agent_request'),
+    path('admin-dashboard/reject-agent-request/<int:user_id>/', views.reject_agent_request, name='reject_agent_request'),
 ]

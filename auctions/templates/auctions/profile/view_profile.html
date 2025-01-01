@@ -31,6 +31,21 @@
             <a href="{% url 'edit_profile' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit Profile</a>
             <a href="{% url 'edit_password' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit Password</a>
         </div>
+
+        {% if not user.is_agent and not user.req_agent %}
+        <div class="mt-4">
+            <form method="POST" action="{% url 'request_agent_status' %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Request Agent Status
+                </button>
+            </form>
+        </div>
+        {% elif user.req_agent %}
+        <div class="mt-4">
+            <p class="text-yellow-500">Agent request pending approval</p>
+        </div>
+        {% endif %}
     </div>
 </section>
 {% endblock %}
