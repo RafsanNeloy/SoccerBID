@@ -1,109 +1,99 @@
-{% extends "auctions/layout.html" %} 
+{% extends "auctions/layout.html" %}
 {% block body %}
 
-<section class="bg-white dark:bg-gray-900 pt-[10vh] min-h-[100vh] w-full">
+<section class="bg-[#F0BB78] dark:bg-gray-900 pt-[10vh] min-h-[100vh] w-full">
 
   {% if messages %}
-        {% for message in messages %}
-            <script>
-                alert("{{ message }}");
-            </script>
-        {% endfor %}
-    {% endif %}
-
-    <div class="container mx-auto px-4 py-8 text-gray-200">
-        <!-- Alert Style Heading -->
-        <h1 class="text-4xl blink-red font-bold mb-6 text-center text-black py-4">
-            Welcome to SOCCER BID!!
-        </h1>
-
-        <div class="flex items-center justify-center">
-            <div class="text-center">
-                <p class="text-lg leading-relaxed text-gray-400">
-                    Are you ready to turn your love for football into thrilling victories off the field? At SOCCER BID, the beautiful game gets even more exciting. Join a community of die-hard fans competing to outwit, outplay, and outbid others for a chance to score big!
-                </p>
-                <p id="typing-text"  class="text-3xl font-bold leading-relaxed text-blue-500">
-              </p>
-            </div>
-        </div>
-        
-        <script>
-          const text = "Let the games begin – because football isn't just played, it's lived!";
-          const typingText = document.getElementById("typing-text");
-          let index = 0;
-      
-          function typeEffect() {
-              if (index < text.length) {
-                  typingText.textContent += text.charAt(index);
-                  index++;
-                  setTimeout(typeEffect, 100); // Adjust typing speed (100ms per character)
-              }
-              else {
-                // When finished typing, reset and restart
-                setTimeout(() => {
-                    index = 0;
-                    typingText.textContent = ''; // Clear the text
-                    typeEffect(); // Start typing again
-                }, 1000);
-            }
-        }
-      
-          // Start the typing effect
-          typeEffect();
+    {% for message in messages %}
+      <script>
+          alert("{{ message }}");
       </script>
+    {% endfor %}
+  {% endif %}
 
+  <div class="container mx-auto px-4 py-8 text-gray-200">
+    <!-- Alert Style Heading -->
+    <h1 class="text-4xl blink-red font-bold mb-6 text-center text-black py-4">
+      Welcome to SOCCER BID!!
+    </h1>
+
+    <div class="flex items-center justify-center">
+      <div class="text-center">
+        <p class="text-lg leading-relaxed text-black">
+          Are you ready to turn your love for football into thrilling victories off the field? At SOCCER BID, the beautiful game gets even more exciting. Join a community of die-hard fans competing to outwit, outplay, and outbid others for a chance to score big!
+        </p>
+        <p id="typing-text" class="text-3xl font-bold leading-relaxed text-blue-500">
+        </p>
+      </div>
     </div>
-  
-    {% if user.is_authenticated %}
+
+    <script>
+      const text = "Let the games begin – because football isn't just played, it's lived!";
+      const typingText = document.getElementById("typing-text");
+      let index = 0;
+
+      function typeEffect() {
+          if (index < text.length) {
+              typingText.textContent += text.charAt(index);
+              index++;
+              setTimeout(typeEffect, 100); // Adjust typing speed (100ms per character)
+          }
+          else {
+            // When finished typing, reset and restart
+            setTimeout(() => {
+                index = 0;
+                typingText.textContent = ''; // Clear the text
+                typeEffect(); // Start typing again
+            }, 1000);
+        }
+      }
+
+      // Start the typing effect
+      typeEffect();
+    </script>
+
+  </div>
+
+  {% if user.is_authenticated %}
     <hr class="border-t-2 border-gray-300 my-6">
-    {% else %}
+  {% else %}
     <div class="flex gap-4 justify-center my-4 items center">
 
       <a href="{% url 'login' %}"><button
-      class="w-[150px] h-[50px] middle none center mr-4 rounded-lg bg-cyan-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" data-ripple-light="true">
-      Login</button></a>
+        class="w-[150px] h-[50px] middle none center mr-4 rounded-lg bg-cyan-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-500/20 transition-all hover:shadow-lg hover:shadow-cyan-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" data-ripple-light="true">
+        Login</button></a>
 
       <a href="{% url 'register' %}"><button
-      class="w-[150px] h-[50px] middle none center mr-4 rounded-lg bg-purple-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-purple/20 transition-all hover:shadow-lg hover:shadow-purple-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" data-ripple-light="true">
-      Register</button></a>
+        class="w-[150px] h-[50px] middle none center mr-4 rounded-lg bg-purple-400 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-cyan-purple/20 transition-all hover:shadow-lg hover:shadow-purple-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" data-ripple-light="true">
+        Register</button></a>
 
     </div>
     <hr class="border-t-2 border-gray-300 my-6">
-    {% endif %}
+  {% endif %}
 
-    {% include "auctions/homecategory.html" %}
-  
+  {% include "auctions/homecategory.html" %}
+
   <!-- Reduced margin even further -->
   <div class="mb-4"></div> <!-- This value can be reduced further -->
 
   <div class="container px-6 py-8 mx-auto">
-    <h1
-      class="text-3xl text-center font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white text-center"
-    >
+    <h1 class="text-3xl text-center font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white text-center">
       Recent Listings
     </h1>
-    <!-- Grid -->
+    <!-- Grid with Border for Each Listing -->
     <div class="grid grid-cols-1 gap-6 mt-6 md:mt-12 md:grid-cols-2">
-      <!-- Cards -->
+      <!-- Cards with Borders -->
       {% for listing in listings %}
-      <div class="lg:flex hover: transform transition-transform hover:scale-110">
-        <img
-          class="object-cover w-full h-56 rounded-lg lg:w-64"
-          src="media/{{ listing.image }}"
-          alt="product_img"
-        />
+      <div class="lg:flex hover:transform transition-transform hover:scale-110 border-2 border-gray-300 rounded-lg p-4">
+        <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="media/{{ listing.image }}" alt="product_img" />
 
         <div class="flex flex-col justify-between py-6 lg:mx-6">
-
             <div class="flex flex-col justify-around gap-4">
-            <a
-                href="{% url 'listing' listing.id %}"
-                class="text-xl font-semibold text-gray-800 hover:underline dark:text-white"
-            >
-                {{listing.title}}
+            <a href="{% url 'listing' listing.id %}" class="text-xl font-semibold text-gray-800 hover:underline dark:text-white">
+              {{ listing.title }}
             </a>
 
-            <p> Category : {{listing.category}} </p>
+            <p> Category : {{ listing.category }} </p>
 
             <p class="dark:text-white mb-2 mt-2">
                 Current Bid: ₹ {{ listing.starting_value }}
@@ -114,16 +104,13 @@
           <p class="blink-green font-bold my-2 text-green-500">Active</p>
 
           <a href="{% url 'listing' listing.id %}">
-          <button
-            class="w-[150px] middle none center mr-4 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            data-ripple-light="true"
-          >
-             Bid Now
+          <button class="w-[150px] middle none center mr-4 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" data-ripple-light="true">
+            Bid Now
           </button>
           </a>
 
           {% else %}
-          <p class=" font-bold text-red-500 blink-red">Expired</p>
+          <p class="font-bold text-red-500 blink-red">Expired</p>
           {% endif %}
         </div>
       </div>
