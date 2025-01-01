@@ -159,7 +159,7 @@ def forgot_password(request):
                 send_mail(
                     'Your Account Verification OTP',
                     'Use the following OTP to verify your account:',
-                    'bidbazaar2024@gmail.com',
+                    'soccerbid@gmail.com',
                     [email],
                     html_message=html_content,
                     fail_silently=False,
@@ -206,7 +206,7 @@ def password_otp(request):
             send_mail(
                 'Your Account Verification OTP',
                 'Use the following OTP to verify your account:',
-                'bidbazaar2024@gmail.com',
+                'soccerbid2025@gmail.com',
                 [email],
                 html_message=html_content,
                 fail_silently=False,
