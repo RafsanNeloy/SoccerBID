@@ -36,4 +36,6 @@ urlpatterns = [
     path('toggle-agent/<int:user_id>/', views.toggle_agent_status, name='toggle_agent_status'),
     path('admin/delete_listing/<int:listing_id>/', views.delete_listing_ajax, name='delete_listing_ajax'),
     path('admin/toggle_listing_status/<int:listing_id>/', views.toggle_listing_status_ajax, name='toggle_listing_status_ajax'),
+    path('otp-verification/', views.otp_verification, name='otp_verification'),
+    path('otp-success/', views.otp_success, name='otp_success'),
 ]

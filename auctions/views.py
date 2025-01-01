@@ -71,18 +71,37 @@ def register(request):
 
         # Basic validation
         if password == confirmation:
-            # Create user using create_user method which handles password hashing and authentication
-            user = User.objects.create_user(
-                username=username,
-                email=email,
-                password=password  # Django will handle password hashing
-            )
+            # Generate OTP
+            otp = random.randint(100000, 999999)
             
-            # Optional: Add a success message
-            messages.success(request, 'Account created successfully. Please log in.')
-            return redirect('login')
+            # Store registration data and OTP in session
+            request.session['username'] = username
+            request.session['email'] = email
+            request.session['password'] = password
+            request.session['otp'] = otp
+            
+            # Send OTP via email
+            html_content = render_to_string('auctions/mail/otp_mail.html', {
+                'username': username,
+                'otp': otp
+            })
+            
+            try:
+                send_mail(
+                    'Your Account Verification OTP',
+                    'Use the following OTP to verify your account:',
+                    'soccer.auction2024@gmail.com',  # Update with your email
+                    [email],
+                    html_message=html_content,
+                    fail_silently=False,
+                )
+                return redirect('otp_verification')
+            except Exception as e:
+                return render(request, 'auctions/authentication/register.html', 
+                            {'message': 'Failed to send OTP. Please try again.'})
         else:
-            return render(request, 'auctions/authentication/register.html', {'message': 'Passwords do not match'})
+            return render(request, 'auctions/authentication/register.html', 
+                        {'message': 'Passwords do not match'})
 
     return render(request, 'auctions/authentication/register.html')
 
@@ -97,11 +116,18 @@ def otp_verification(request):
                 password=make_password(request.session['password'])
             )
             user.save()
-            # Set a session variable to indicate OTP verification success
-            request.session['otp_verified'] = True
-            return redirect('otp_success')  # Redirect to the success page
+            
+            # Clean up session data
+            del request.session['username']
+            del request.session['email']
+            del request.session['password']
+            del request.session['otp']
+            
+            messages.success(request, 'Account created successfully. Please log in.')
+            return redirect('login')
         else:
-            return render(request, 'auctions/authentication/otp_authentication.html', {'error': 'Invalid OTP'})
+            return render(request, 'auctions/authentication/otp_authentication.html', 
+                        {'error': 'Invalid OTP'})
     return render(request, 'auctions/authentication/otp_authentication.html')
 
 
