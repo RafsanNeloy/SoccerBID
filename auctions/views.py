@@ -657,3 +657,68 @@ def toggle_agent_status(request, user_id):
         user.is_agent = not user.is_agent
         user.save()
     return redirect('manage_users')
+
+@login_required
+def request_agent_status(request):
+    if request.method == 'POST':
+        # Mark the user as requesting agent status
+        request.user.req_agent = True
+        request.user.save()
+        messages.success(request, 'Your request to become an agent has been submitted.')
+        return redirect('view_profile')
+    return redirect('view_profile')
+
+@user_passes_test(is_superuser, login_url='/forbidden/')
+def manage_agent_requests(request):
+    # Get all users who have requested agent status
+    agent_requests = User.objects.filter(req_agent=True, is_agent=False)
+    return render(request, 'auctions/admin/manage_agent_requests.html', {'agent_requests': agent_requests})
+
+@user_passes_test(is_superuser, login_url='/forbidden/')
+def approve_agent_request(request, user_id):
+    if request.method == 'POST':
+        try:
+            user = User.objects.get(id=user_id)
+            user.is_agent = True
+            user.req_agent = False
+            user.save()
+            
+            # Optional: Send an email notification
+            subject = 'Agent Status Approved'
+            message = 'Your request to become an agent has been approved.'
+            send_mail(
+                subject,
+                message,
+                'soccer.auction2024@gmail.com',
+                [user.email],
+                fail_silently=False,
+            )
+            
+            messages.success(request, f'Agent status approved for {user.username}')
+        except User.DoesNotExist:
+            messages.error(request, 'User not found')
+    return redirect('manage_agent_requests')
+
+@user_passes_test(is_superuser, login_url='/forbidden/')
+def reject_agent_request(request, user_id):
+    if request.method == 'POST':
+        try:
+            user = User.objects.get(id=user_id)
+            user.req_agent = False
+            user.save()
+            
+            # Optional: Send an email notification
+            subject = 'Agent Status Request Rejected'
+            message = 'Your request to become an agent has been rejected.'
+            send_mail(
+                subject,
+                message,
+                'soccer.auction2024@gmail.com',
+                [user.email],
+                fail_silently=False,
+            )
+            
+            messages.success(request, f'Agent request rejected for {user.username}')
+        except User.DoesNotExist:
+            messages.error(request, 'User not found')
+    return redirect('manage_agent_requests')
