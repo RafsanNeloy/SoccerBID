@@ -20,15 +20,15 @@
                             <div class="h-full w-full relative">
                                 <!-- Dynamically load category image -->
                                 {% if category == 'Right-Wing' %}
-                                    <img src="{% static 'auctions/rightwing.JPEG' %}" class="object-cover w-full h-full" alt="Right Wing">
+                                    <img src="{% static 'auctions/rightwing.jpeg' %}" class="object-cover w-full h-full" alt="Right Wing">
                                 {% elif category == 'Left-Wing' %}
-                                    <img src="{% static 'auctions/leftwing.JPEG' %}" class="object-cover w-full h-full" alt="Left Wing">
+                                    <img src="{% static 'auctions/leftwing.jpeg' %}" class="object-cover w-full h-full" alt="Left Wing">
                                 {% elif category == 'Defender' %}
-                                    <img src="{% static 'auctions/defender.PNG' %}" class="object-cover w-full h-full" alt="Defender">
+                                    <img src="{% static 'auctions/defender.png' %}" class="object-cover w-full h-full" alt="Defender">
                                 {% elif category == 'MID-Fielder' %}
-                                    <img src="{% static 'auctions/midfielder.JPEG' %}" class="object-cover w-full h-full" alt="MID-Fielder">
+                                    <img src="{% static 'auctions/midfielder.jpeg' %}" class="object-cover w-full h-full" alt="MID-Fielder">
                                 {% elif category == 'GOAL-Keeper' %}
-                                    <img src="{% static 'auctions/keeper.PNG' %}" class="object-cover w-full h-full" alt="Goal Keeper">
+                                    <img src="{% static 'auctions/keeper.png' %}" class="object-cover w-full h-full" alt="Goal Keeper">
                                 {% else %}
                                     <img src="{% static 'auctions/other_icon.svg' %}" class="object-cover w-full h-full" alt="Other">
                                 {% endif %}
