@@ -14,6 +14,16 @@
 
     </head>
     <body>
+        <section 
+  class="bg-white dark:bg-gray-900 pt-[10vh] min-h-[100vh] w-full relative"
+  style="
+    background-image: url('/static/auctions/wl.JPG'); 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    background-position: center; 
+    background-color: rgba(255, 255, 255, 0.5); /* White background with 80% opacity */
+    background-blend-mode: lighten; /* Blend the image and background color */
+  ">
 
         <nav class="flex justify-around items-center py-4 bg-[#FFF0DC]/90 backdrop-blur-md shadow-md w-full fixed top-0 left-0 right-0 z-50">
             <!-- Logo Container -->
@@ -106,31 +116,31 @@
         
         {% block body %}
         {% endblock %}
-        <footer class="bg-gray-200 py-12 bottom-0 w-full">
-            <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-                
-                <!-- Logo Section with Background Color -->
-                <div class="flex items-center justify-center md:justify-start bg-white-200 p-4 rounded-md w-full max-w-[200px]">
-                    <a href="{% url 'index' %}">
-                        <img src="{% static 'auctions/logoo.PNG' %}" alt="Soccerbid Logo" class="w-full h-auto">
-                        
-                    </a>
-                </div>
-                
-                <!-- Footer Text -->
-                <h1 class="text-gray-900 text-lg font-semibold">All Rights Reserved &copy; soccerbid.com</h1>
-                
-                <!-- Navigation -->
-                <nav class="mt-4 md:mt-0">
-                    <ul class="flex justify-center  md:justify-end space-x-4">
-                        <li><a href="{% url 'admin_view' %}" class="text-black-600 hover:text-red-600 transition duration-300">Admin</a></li>
-                        <li><a href="#" class="text-black-600 hover:text-red-600 transition duration-300">Terms of Service</a></li>
-                        <li><a href="#" class="text-black-600 hover:text-red-600 transition duration-300">Privacy Policy</a></li>
-                        <li><a href="#" class="text-black-600 hover:text-red-600 transition duration-300">Contact Us</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </footer>
+       <footer class="bg-gray-200 py-0 bottom-0 w-full">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+        
+        <!-- Logo Section with Background Color -->
+        <div class="flex items-center justify-center md:justify-start bg-white-200 p-4 rounded-md w-full max-w-[200px]">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'auctions/logoo.PNG' %}" alt="Soccerbid Logo" class="w-full h-auto">
+            </a>
+        </div>
+        
+        <!-- Footer Text -->
+        <h1 class="text-gray-900 text-lg font-semibold">All Rights Reserved &copy; soccerbid.com</h1>
+        
+        <!-- Navigation -->
+        <nav class="mt-2 md:mt-0">
+            <ul class="flex justify-center md:justify-end space-x-4">
+                <li><a href="{% url 'admin_view' %}" class="text-black-600 hover:text-red-600 transition duration-300">Admin</a></li>
+                <li><a href="#" class="text-black-600 hover:text-red-600 transition duration-300">Terms of Service</a></li>
+                <li><a href="#" class="text-black-600 hover:text-red-600 transition duration-300">Privacy Policy</a></li>
+                <li><a href="#" class="text-black-600 hover:text-red-600 transition duration-300">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+
         
     </body>
 </html>

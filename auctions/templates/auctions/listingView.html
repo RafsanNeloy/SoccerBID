@@ -2,7 +2,7 @@
 {% block body %}
 {% load custom_filters %}
 <!-- component -->
-<section class="min-h-[100vh] w-[100vw] pb-12vh bg-[#F0BB78] pt-[12vh]">
+<section class="min-h-[100vh] w-[100vw] pb-12vh  pt-[12vh]">
 
     {% if error_message %}
     <div
@@ -40,10 +40,10 @@
     {% endif %}
       <div class="mt-6 md:ml-6 md:mt-0 md:w-1/2 lg:ml-8 xl:w-2/5">
         <div class="border-b border-gray-200 pb-6">
-          <p class="text-sm leading-none text-gray-600 dark:text-gray-300">Category : {{ listing.category }}</p>
+          <p class="text-sm leading-none text-gray-900 dark:text-gray-300">Category : {{ listing.category }}</p>
           <h1 class="mt-2 text-xl font-semibold leading-7 text-gray-800 lg:text-2xl lg:leading-6 dark:text-white">{{ listing.title }}</h1>
         </div>
-        <div class="flex flex-col gap-2 border-b border-gray-200 py-4 text-white">
+        <div class="flex flex-col gap-2 border-b border-gray-1000 py-4 text-gray-1000">
           <strong class="text-lg">Player Description</strong>
           <p class=" my-1" >{{ listing.description }}</p>
           <p class="text-lg my-1" ><strong>Owner: </strong>{{ listing.user }}</p>
@@ -67,7 +67,7 @@
           </div>
         </div>
         <div class=" m-6 text-center">
-          <p class="text-white text-2xl">Current Highest Bidder: {% if highest_bidder %} <span>{{highest_bidder}}</span> {% else %} <span>No one has bid yet !</span> {% endif %}</p>
+          <p class="text-blue-900 text-2xl">Current Highest Bidder: {% if highest_bidder %} <span>{{highest_bidder}}</span> {% else %} <span>No one has bid yet !</span> {% endif %}</p>
         </div>
 
         {% if not user_authenticated %}
