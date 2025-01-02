@@ -42,4 +42,5 @@ urlpatterns = [
     path('admin-dashboard/manage-agent-requests/', views.manage_agent_requests, name='manage_agent_requests'),
     path('admin-dashboard/approve-agent-request/<int:user_id>/', views.approve_agent_request, name='approve_agent_request'),
     path('admin-dashboard/reject-agent-request/<int:user_id>/', views.reject_agent_request, name='reject_agent_request'),
+    path('admin/delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
 ]
